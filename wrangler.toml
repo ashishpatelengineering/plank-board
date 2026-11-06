@@ -2,6 +2,8 @@ name = "plank-board"
 main = "src/worker.js"
 compatibility_date = "2025-09-01"
 workers_dev = true
+# keep_vars makes sure a deploy from GitHub never wipes anything you set in the dashboard.
+keep_vars = true
 preview_urls = false   # preview links are separate addresses; keep them off
 
 # The page itself is served by the same Worker, so there is one thing to deploy.
@@ -27,5 +29,3 @@ database_name = "plank-board"
 
 # The team password is NOT written here. Add it in the Cloudflare dashboard as a secret named TEAM_PASSWORD
 # (Workers and Pages > plank-board > Settings > Variables and Secrets). See GITHUB-SETUP.txt.
-# keep_vars makes sure a deploy from GitHub never wipes anything you set in the dashboard.
-keep_vars = true
