@@ -23,6 +23,7 @@ new_sqlite_classes = ["Board"]
 [[d1_databases]]
 binding = "DB"
 database_name = "plank-board"
+database_id = "b57161aa-1b0b-459f-89cd-c31a3f8f3ff5"
 # No database_id on purpose: Cloudflare creates the database on the first deploy.
 # If that ever fails, create one (npx wrangler d1 create plank-board, or in the dashboard)
 # and add its id here:  database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
