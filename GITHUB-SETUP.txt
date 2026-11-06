@@ -1,0 +1,82 @@
+PLANK BOARD FOR YOUR TEAM: SETUP FROM YOUR BROWSER (GitHub + Cloudflare)
+=======================================================================
+
+No Node, no terminal, no sign-in service, no payment card.
+Everyone opens one web address, types one shared team password, and sees the same
+boards. Changes appear for everyone within a second.
+
+You need a free GitHub account and a free Cloudflare account. About 20 minutes.
+
+
+PART A. PUT THE PROJECT ON GITHUB
+---------------------------------
+1. Go to github.com/new. Name it  plank-board . Choose Private. Leave "Add a README"
+   unticked. Click Create repository.
+2. On the empty repository page click  "uploading an existing file".
+3. Unzip the package. Select everything INSIDE the unzipped folder and drag it onto the
+   GitHub page. Wait until all files are listed.
+4. Click Commit changes.
+   Check that wrangler.toml and package.json are at the top level of the repository.
+
+
+PART B. PUBLISH IT WITH CLOUDFLARE
+----------------------------------
+1. Cloudflare dashboard > Workers and Pages > Create > Import a repository. Connect GitHub
+   and allow access to the plank-board repository.
+2. Select the repository. Project (Worker) name:  plank-board  (it must match wrangler.toml).
+3. Leave the build command empty. Leave the deploy command as  npx wrangler deploy .
+   Click Save and Deploy.
+4. When the build finishes, Cloudflare shows your address, for example
+   https://plank-board.yourname.workers.dev . Write it down.
+   The page says "not set up yet" until Part C. That is correct.
+5. Pin the database (do this once). Open Storage and databases > D1 > plank-board and copy
+   its ID. In GitHub open wrangler.toml, click the pencil icon, and add under
+   database_name the line
+       database_id = "the id you copied"
+   Commit. This stops a later build from creating a second, empty database.
+
+
+PART C. SET THE TEAM PASSWORD
+-----------------------------
+1. Choose a password of at least 12 characters. A phrase of four or five unrelated words
+   is easy to type and hard to guess, for example  lantern-oyster-cobalt-meadow .
+   The app refuses to run with anything shorter.
+2. Cloudflare dashboard > Workers and Pages > plank-board > Settings > Variables and Secrets
+   > Add.
+     Type:   Secret      (important: not "Text")
+     Name:   TEAM_PASSWORD
+     Value:  your password
+   Click Deploy (or Save and deploy).
+3. Open your address. You should see a password page. Type the password. The app asks for
+   your first name once, then opens the sample board.
+4. Send your teammates the address and the password. That is all they need.
+
+
+EVERYDAY NOTES
+--------------
+  - Each device remembers the password for about a month. Menu (three dots) > Sign out
+    forgets it on that device.
+  - Names are only labels, so people can tell who is who. Anyone can change theirs from the
+    menu (Change my name).
+  - Change the password: edit the TEAM_PASSWORD secret in Cloudflare. Everyone is signed out
+    and needs the new one.
+  - Someone left the team? Change the password.
+  - Backups: a copy of each board is saved every hour while it is in use, and the last 48 are
+    kept. Menu > Backups > Restore. The version a restore replaces is saved first, so you can
+    undo it the same way.
+  - Deleting a board for good (Archived boards > Delete forever) removes it for everyone.
+  - Cost: four people fit comfortably in Cloudflare's free plans.
+  - Updating: change files on GitHub (or upload new versions over them). Cloudflare publishes
+    again by itself. Boards are kept.
+  - Removing everything: delete the Worker (Workers and Pages > plank-board > Settings), the
+    D1 database, and the GitHub repository.
+
+
+HOW SAFE IS THIS?
+-----------------
+The password is stored only as a secret in your Cloudflare account, never in GitHub. It is
+checked on the server, and a wrong guess is slowed down. After that the browser holds a
+signed cookie that cannot be forged without the password. The page and the data are sent
+only to people who have it. Everyone with the password has the same access, so share it only
+with people you trust, and use a long phrase. This suits a small trusted team. If you ever
+need per-person access, ask for the sign-in version.

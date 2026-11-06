@@ -1,0 +1,15 @@
+{
+  "name": "plank-board-team",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --var DEV_MODE:1",
+    "deploy": "wrangler deploy",
+    "test": "node test/ops.test.mjs && node test/auth.test.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0",
+    "ws": "^8.22.1"
+  }
+}

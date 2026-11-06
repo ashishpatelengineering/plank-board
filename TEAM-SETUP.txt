@@ -1,0 +1,25 @@
+PLANK BOARD FOR YOUR TEAM: SETUP WITH A TERMINAL
+================================================
+(Prefer your browser? GITHUB-SETUP.txt does the same without a terminal.)
+
+You need Node.js 20 or newer (nodejs.org) and a free Cloudflare account. About 10 minutes.
+
+1. Unzip the package and open a terminal in the folder.
+   (Windows: open the folder, click the address bar, type  powershell  and press Enter.)
+2. npm install
+3. npx wrangler login          (a browser window opens; click Allow)
+4. npx wrangler deploy         (creates the database on the first deploy and prints your address)
+   If it complains about the database, run  npx wrangler d1 create plank-board  and add the
+   line  database_id = "..."  under database_name in wrangler.toml, then deploy again.
+5. Set the team password (12 or more characters; a phrase of four unrelated words works well):
+       npx wrangler secret put TEAM_PASSWORD
+   Paste it when asked. The app is now live behind that password.
+6. Open the address, type the password, type your first name. Send teammates the address and
+   the password.
+
+Everyday notes are in GITHUB-SETUP.txt (changing the password, backups, deleting boards, safety).
+
+Try it on your own computer first (optional):
+       npm run dev
+Open http://localhost:8787. In this mode there is no password. Open a second browser
+profile to be a second person. This mode exists only on your computer.
